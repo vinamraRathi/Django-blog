@@ -7,6 +7,11 @@
             <h2>{{ article.title }}</h2>
             <p>{{ article.body }}</p>
             <p>{{ article.date }}</p>
+            <p class="author">Added By {{ article.author.username }}</p>
+        <form action="{% url 'articles:delete' %}" method="post" class="site-form-1">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+        </form>
         </div>
     </div>
 

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Article
 from django.contrib.auth.decorators import login_required
 from . import forms
@@ -23,3 +23,11 @@ def article_create(request):
     else:
         form = forms.CreateArticle()
     return render(request, 'articles/article_create1.html', {'form': form})
+
+@login_required(login_url="/accounts/login/")
+def article_delete(request):
+    article = get_object_or_404(Article)
+    if request.method == 'POST':
+        article.delete()
+        return redirect('articles:list')
+    return render(request, 'accounts/login.html', {'article':article})
